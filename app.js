@@ -44,7 +44,7 @@ setInterval(() => {
 
 
         }).catch((e) => {
-            console.log(e)
+            console.log(e + " THE ERROR IS..")
             runningFlag = false
         })
 
@@ -67,6 +67,13 @@ setInterval(() => {
 
 const getBlacklist = async (blacklist) => {
 
+
+    var timeout = setTimeout(() => {
+
+        console.log("Execution Timeout!                                              ")
+        process.exit()
+
+    }, 60000)
 
     process.stdout.write('Updating Backlist...' + '                   \r');
 
@@ -105,11 +112,20 @@ const getBlacklist = async (blacklist) => {
     var blacklistArray = Array.from(blacklist)
     fs.writeFileSync('./blacklist.json', JSON.stringify(blacklistArray), 'utf-8')
 
+    clearTimeout(timeout)
+
     return blacklist
 }
 
 
 const filterEmail = async (emailAccount, blacklist) => {
+
+    var timeout = setTimeout(() => {
+
+        console.log("Execution Timeout!                                          ")
+        process.exit()
+
+    }, 60000)
 
     var emailString = await pad(padding, emailAccount.imap.user, true)
     const progressBar = new _cliProgress.Bar(
@@ -153,7 +169,7 @@ const filterEmail = async (emailAccount, blacklist) => {
 
     progressBar.stop();
 
-
+    clearTimeout(timeout)
 
     return 0
 }
